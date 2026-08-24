@@ -1,0 +1,321 @@
+/* ============================================================
+   FPP v2 — Main.css (홈 / 캐릭터 / 현질 서폿 / PvP 패치)
+   ============================================================ */
+.page[hidden]{display:none}
+
+/* ===== 홈 티커 — 배너 아래 독립 스트립 ===== */
+.banner-ticker{
+  position:relative;overflow:hidden;
+  background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:10px 0;box-shadow:0 10px 26px -14px rgba(0,0,0,.5);
+}
+.banner-ticker::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold) 18%,var(--red) 50%,var(--blue) 82%,transparent);
+  opacity:.55;
+}
+.tick-track{display:inline-flex;gap:22px;white-space:nowrap;animation:tickMove 40s linear infinite;will-change:transform}
+.banner-ticker:hover .tick-track{animation-play-state:paused}
+@keyframes tickMove{to{transform:translateX(-50%)}}
+.tick-item{font-size:12px;font-weight:700;color:var(--text-2)}
+.tick-sep{color:var(--gold);font-size:12px}
+.tick-note{color:var(--gold);font-weight:900}
+
+/* ===== 홈 2×2 그리드 ===== */
+.home-grid{display:grid;gap:18px;margin:26px 0 34px;grid-template-columns:1fr}
+@media (min-width:768px){.home-grid{grid-template-columns:1fr 1fr}}
+@media (min-width:768px){.box--patch.no-event{grid-row:span 2}}
+.box--patch .lst{flex:1}
+.box--patch.no-event .lst-row{flex:1 1 0}
+/* PvP Box — 아이콘 개수와 무관하게 Box 크기 유지 */
+.box--pvp{min-height:250px}
+@media (min-width:768px){.box--pvp{min-height:420px}}
+/* 커뮤니티 Box — Box 크기 유지 */
+.box--board{min-height:300px}
+@media (min-width:768px){.box--board{min-height:380px}}
+
+/* ===== 홈 PvP 오브 ===== */
+.pvp-orbs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:14px 12px;justify-items:center;align-content:start}
+@media (max-width:767px){.pvp-orbs .orb:nth-child(n+9){display:none}} /* SM/XS: 4×2 = 최대 8개 */
+.pvp-orbs .empty{grid-column:1/-1}
+.orb{display:flex;flex-direction:column;align-items:center;gap:7px;padding:6px 2px;cursor:pointer;position:relative;transition:transform .25s var(--ease);max-width:100%}
+.orb:hover{transform:translateY(-4px)}
+.orb-img{width:clamp(52px,7vw,76px);aspect-ratio:1;border-radius:50%;overflow:visible;position:relative;display:block;flex:none}
+.orb-img img{width:100%;height:100%;object-fit:cover;border-radius:50%;border:2px solid var(--line-2);background:linear-gradient(150deg,var(--surface-2),var(--surface-3));transition:border-color .2s}
+.orb:hover .orb-img img{border-color:var(--gold)}
+.orb-badge{position:absolute;right:-8px;bottom:-6px;font-size:12px;padding:4px 8px;box-shadow:0 3px 10px rgba(0,0,0,.35);z-index:2}
+.orb-name{font-size:11px;font-weight:800;color:var(--text-2);max-width:76px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ===== 홈 이벤트 롤링 ===== */
+.ev-roll{position:relative;min-height:150px}
+.ev-card{
+  position:absolute;inset:0;display:flex;gap:14px;align-items:center;padding:14px;cursor:pointer;
+  opacity:0;transform:translateX(14px);transition:.55s var(--ease);pointer-events:none;
+}
+.ev-card.on{opacity:1;transform:none;pointer-events:auto}
+.ev-img{position:relative;flex:none;width:118px;height:88px;border-radius:var(--r-sm);overflow:hidden;background:linear-gradient(150deg,var(--surface-2),var(--surface-3))}
+.ev-img img{width:100%;height:100%;object-fit:cover}
+.ev-img .badge{position:absolute;left:7px;top:7px}
+.ev-tx{min-width:0;display:flex;flex-direction:column;gap:4px}
+.ev-tx b{font-size:15px;font-weight:900;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ev-tx small{font-size:11.5px;color:var(--text-3)}
+
+/* ===== 캐릭터 탭 (우측 끝 정렬) ===== */
+.char-tabs{display:flex;gap:8px;margin-top:22px;border-bottom:1px solid var(--line);justify-content:flex-end}
+.char-tab{
+  padding:13px 22px;font-family:var(--font-d);font-size:17px;color:var(--text-3);position:relative;
+  letter-spacing:.4px;min-height:48px;transition:color .2s;
+}
+.char-tab.is-on{color:var(--gold)}
+.char-tab.is-on::after{content:"";position:absolute;left:10px;right:10px;bottom:-1px;height:3px;background:var(--gold)}
+.char-tab:hover{color:var(--text-2)}
+
+/* ===== 캐릭터 필터 — 1열: 좌측 4필터 · 우측 즐겨찾기/검색/새로고침 ===== */
+.char-filters{margin-top:16px}
+.cf-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.cf-sel{flex:0 0 100px;min-width:0;height:44px;min-height:44px;padding:0 10px;font-size:13px;font-weight:800}
+.cf-right{display:flex;gap:8px;align-items:center;margin-left:auto}
+.cf-right .btn{min-height:44px}
+.cf-fav{flex:none}
+.cf-fav.is-on{background:color-mix(in srgb,var(--gold) 16%,transparent);border-color:var(--gold);color:var(--gold)}
+.cf-search{position:relative;flex:0 1 210px;min-width:140px}
+.cf-search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-3)}
+.cf-search input{padding-left:36px;min-height:44px;height:44px;width:100%}
+/* 모바일: 2줄 — 1열 필터, 2열 액션 */
+@media (max-width:767px){
+  .cf-sel{flex:1 1 0;min-width:0}
+  .cf-right{margin-left:0;flex-basis:100%}
+  .cf-search{flex:1 1 150px}
+}
+
+/* ===== 캐릭터 그리드 (XS4 / SM6 / MD7 / LG8) ===== */
+.char-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0 30px}
+@media (min-width:420px){.char-grid{gap:12px}}
+@media (min-width:560px){.char-grid{grid-template-columns:repeat(6,1fr)}}
+@media (min-width:768px){.char-grid{grid-template-columns:repeat(7,1fr)}}
+@media (min-width:1024px){.char-grid{grid-template-columns:repeat(8,1fr)}}
+
+/* ===== 캐릭터 카드 (원본 레포 구조) ===== */
+.char-card{
+  position:relative;background:var(--surface);border:1px solid var(--line-n);border-radius:var(--r-md);
+  padding:0 0 8px;cursor:pointer;text-align:center;overflow:hidden;
+  transition:transform .22s var(--ease),border-color .22s,box-shadow .22s,background .22s;
+}
+/* 카드 전체 배경 = 순수 속성 색상 (힘 빨강 / 기 초록 / 심 노랑) — 이미지 뒤는 중립 유지 */
+.char-card.attr-force{background:#e53e3e}
+.char-card.attr-ki{background:#38a169}
+.char-card.attr-sim{background:#d69e2e}
+/* 원본 호버: 블루 테두리 + 글로우 — 속성 카드는 해당 속성색 글로우로 */
+.char-card:hover{transform:translateY(-3px);border-color:#4d9fff;box-shadow:0 0 12px rgba(77,159,255,.25)}
+.char-card.attr-force:hover{border-color:#e53e3e;box-shadow:0 0 14px rgba(229,62,62,.32)}
+.char-card.attr-ki:hover{border-color:#38a169;box-shadow:0 0 14px rgba(56,161,105,.32)}
+.char-card.attr-sim:hover{border-color:#d69e2e;box-shadow:0 0 14px rgba(214,158,46,.34)}
+.char-card-img-wrap{position:relative;aspect-ratio:1/1;overflow:hidden;background:linear-gradient(150deg,var(--surface-2),var(--surface-3))}
+/* 본문 캐릭터 이미지만 프레임에 맞춤 — 속성/타입 아이콘(img)은 제외 */
+.char-card-img-wrap img:not(.char-attr-icon):not(.char-type-icon){
+  width:100%;height:100%;object-fit:contain;object-position:left bottom;
+  transition:transform .35s var(--ease);
+}
+.char-card:hover .char-card-img-wrap img:not(.char-attr-icon):not(.char-type-icon){transform:scale(1.06)}
+.char-card-placeholder{
+  position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+  font-family:var(--font-d);font-size:30px;color:var(--text-3);background:linear-gradient(150deg,var(--surface-2),var(--surface-3));
+}
+/* 속성 삼각 리본 — 좌상단 (힘 빨강 / 기 초록 / 심 노랑) */
+.char-badge{
+  position:absolute;top:0;left:0;width:0;height:0;z-index:1;
+  border-top:28px solid transparent;
+  border-right:28px solid transparent;
+  filter:drop-shadow(1px 1px 1px rgba(0,0,0,.4)) drop-shadow(-1px -1px 0 rgba(255,255,255,.14));
+}
+.char-badge.attr-force{border-top-color:#e53e3e}
+.char-badge.attr-ki{border-top-color:#38a169}
+.char-badge.attr-sim{border-top-color:#d69e2e}
+/* 속성/타입 아이콘 — 좌측 상단 세로 정렬 */
+.char-card-icons{position:absolute;top:0;left:0;z-index:2;display:flex;flex-direction:column;gap:4px;padding:0}
+/* 속성/타입 아이콘 — 테두리·배경 없이 이미지만 노출 */
+.char-attr-icon,.char-type-icon{
+  width:23px;height:23px;object-fit:contain;border-radius:0;border:none;background:none;box-shadow:none;
+}
+/* 등급 뱃지 — 우측 하단 (원본 파스텔) */
+.char-grade-badge{
+  position:absolute;right:4px;bottom:4px;z-index:2;
+  font-family:var(--font-d);font-size:11px;line-height:1;padding:3.5px 7px;border-radius:6px;
+  box-shadow:0 2px 6px rgba(0,0,0,.4);
+}
+.char-grade-badge.grade-SS,.cp-rel-grade.grade-SS{background:#ffeb96;color:#7a5c00}
+.char-grade-badge.grade-S,.cp-rel-grade.grade-S{background:#ffb266;color:#7a4300}
+.char-grade-badge.grade-A,.cp-rel-grade.grade-A{background:#ce93ff;color:#5b1e8f}
+.char-grade-badge.grade-B,.cp-rel-grade.grade-B{background:#90caf9;color:#0d47a1}
+.char-grade-badge.grade-C,.cp-rel-grade.grade-C{background:#a5d6a7;color:#1b5e20}
+/* 즐겨찾기 별 — 우측 상단 모서리, 패딩 없음 */
+.char-fav-btn{
+  position:absolute;top:0;right:0;z-index:3;width:28px;height:28px;border-radius:0 0 0 50%;border:none;cursor:pointer;
+  font-size:13px;line-height:1;display:flex;align-items:flex-start;justify-content:flex-end;padding:5px 6px 0 0;
+  color:#dfe8f2;background:rgba(6,16,28,.55);text-shadow:0 1px 3px rgba(0,0,0,.6);transition:.2s;
+}
+.char-fav-btn:hover{transform:scale(1.14);color:var(--gold)}
+.char-fav-btn.active{color:var(--gold);background:rgba(6,16,28,.72)}
+/* 이름 밴드 — 중립 색상 유지 */
+.char-card-name{
+  margin:0;padding:7px 8px 9px;font-size:12.5px;font-weight:800;color:var(--text);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:var(--surface);
+  border-top:1px solid color-mix(in srgb,var(--line) 72%,transparent);
+}
+
+/* ===== 캐릭터 정보 슬라이드 패널 ===== */
+/* 패널 오픈 시 뒷배경 스크롤 잠금 (common.css의 body-lock과 동일 — position:fixed 방식) */
+.cp-backdrop{
+  position:fixed;inset:0;z-index:90;background:rgba(2,8,16,.62);backdrop-filter:blur(3px);
+  opacity:0;pointer-events:none;transition:opacity .32s var(--ease);
+}
+.cp-backdrop.open{opacity:1;pointer-events:auto}
+.cp-panel{
+  position:fixed;top:0;right:0;bottom:0;z-index:95;width:min(430px,100%);
+  display:flex;flex-direction:column;background:var(--surface);
+  border-left:1px solid var(--line-2);box-shadow:-20px 0 60px rgba(0,0,0,.45);
+  transform:translateX(102%);transition:transform .38s var(--ease);
+}
+.cp-panel.open{transform:translateX(0)}
+.cp-head{flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.cp-name{font-family:var(--font-d);font-size:21px;letter-spacing:.5px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cp-close{flex:none;width:38px;height:38px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;color:var(--text-3);transition:.2s}
+.cp-close:hover{background:var(--surface-2);color:var(--red)}
+.cp-hero{flex:none;display:flex;gap:16px;align-items:center;padding:18px;border-bottom:1px solid var(--line);background:linear-gradient(150deg,var(--surface-2),var(--surface))}
+.cp-ava{flex:none;width:104px;height:104px;aspect-ratio:1/1;padding:0;border-radius:var(--r-md);overflow:hidden;border:2px solid var(--line-2);background:linear-gradient(150deg,var(--surface-2),var(--surface-3));box-shadow:0 8px 22px rgba(2,10,20,.4)}
+.cp-ava img{display:block;width:100%;height:100%;padding:0;object-fit:contain}
+.cp-side{flex:1;min-width:0;display:flex;flex-direction:column;gap:12px}
+.cp-meta{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.cp-meta .char-grade-badge{position:static;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+/* 속성·타입 이미지 아이콘 — 프레임 없이 아이콘 자체로 노출 */
+.cp-ic{
+  width:36px;height:36px;border-radius:50%;object-fit:cover;display:block;
+  filter:drop-shadow(0 3px 7px rgba(0,0,0,.4));
+}
+.cp-fav{
+  align-self:flex-start;display:inline-flex;align-items:center;gap:7px;cursor:pointer;
+  font-size:12.5px;font-weight:800;color:var(--text-2);
+  border:1px solid var(--line-2);border-radius:99px;padding:7px 14px;transition:.2s;background:var(--surface);
+}
+.cp-fav:hover{border-color:var(--gold);color:var(--gold)}
+.cp-fav.on{border-color:var(--gold);color:var(--gold);background:color-mix(in srgb,var(--gold) 14%,transparent)}
+.cp-tabs{flex:none;display:flex;gap:2px;border-bottom:1px solid var(--line);padding:0 10px}
+.cp-tab{
+  position:relative;flex:1;padding:13px 4px;font-family:var(--font-d);font-size:14px;letter-spacing:.4px;
+  color:var(--text-3);transition:color .2s;white-space:nowrap;min-height:44px;
+}
+.cp-tab:hover{color:var(--text-2)}
+.cp-tab.is-on{color:var(--gold)}
+.cp-tab.is-on::after{content:"";position:absolute;left:8px;right:8px;bottom:-1px;height:3px;background:var(--gold);transform:skewX(-18deg)}
+.cp-scroll{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:18px}
+.cp-body.swap{animation:cpSwap .3s var(--ease)}
+@keyframes cpSwap{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.cp-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.cp-list li{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-sm);padding:11px 13px;display:flex;flex-direction:column;gap:3px;text-align:left}
+.cp-list b{font-size:13.5px}
+.cp-list small{font-size:12px;color:var(--text-2);line-height:1.6}
+.cp-empty{font-size:12.5px;color:var(--text-3);padding:6px 2px}
+/* 최근패치 — 날짜별 그룹 */
+.cpp-group{margin-bottom:16px}
+.cpp-group:last-child{margin-bottom:0}
+.cpp-date{
+  display:flex;align-items:center;gap:7px;
+  font-family:var(--font-d);font-size:13.5px;letter-spacing:.5px;color:var(--text);
+  padding:8px 11px;margin-bottom:8px;border-radius:var(--r-sm);
+  background:linear-gradient(90deg,color-mix(in srgb,var(--gold) 13%,var(--surface-2)),var(--surface-2));
+  border-left:3px solid var(--gold);
+}
+.cpp-cnt{margin-left:auto;font-family:var(--font-b);font-size:10.5px;font-weight:800;color:var(--text-3);background:var(--surface);border:1px solid var(--line);border-radius:99px;padding:2px 8px;letter-spacing:.3px}
+.cpp-item{position:relative;padding-left:16px}
+.cpp-item::before{content:"";position:absolute;left:6px;top:11px;bottom:11px;width:3px;border-radius:2px;background:var(--text-3)}
+.cpp-item--buff::before{background:var(--green)}
+.cpp-item--nerf::before{background:var(--red)}
+.cpp-item--fix::before{background:#d2a679}
+.cpp-item--buff b{color:var(--green)}
+.cpp-item--nerf b{color:var(--red)}
+.cpp-item--fix b{color:#d2a679}
+/* 관련 캐릭터 */
+.cp-related{flex:none}
+.cp-related-head{font-family:var(--font-d);font-size:14px;letter-spacing:.5px;color:var(--text-2);margin-bottom:10px;padding-left:10px;position:relative}
+.cp-related-head::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:3px;background:var(--gold);transform:skewY(-8deg)}
+.cp-related-icons{display:flex;gap:12px;flex-wrap:wrap}
+.cp-rel{display:flex;flex-direction:column;align-items:center;gap:5px;width:66px;cursor:pointer;transition:transform .22s var(--ease)}
+.cp-rel:hover{transform:translateY(-3px)}
+.cp-rel-circle{position:relative;width:64px;height:64px;flex:none}
+.cp-rel-img{position:absolute;inset:0;border-radius:50%;overflow:hidden;border:2px solid var(--line-2);background:linear-gradient(150deg,var(--surface-2),var(--surface-3));transition:border-color .2s}
+.cp-rel:hover .cp-rel-img{border-color:var(--gold)}
+.cp-rel-img img{display:block;width:100%;height:100%;object-fit:cover}
+/* 등급 뱃지 — 아이콘 우측 하단에 반쯤 걸쳐 노출 */
+.cp-rel-grade{
+  position:absolute;right:-7px;bottom:-5px;z-index:2;
+  font-family:var(--font-d);font-size:9.5px;line-height:1;padding:3px 5.5px;border-radius:5px;
+  box-shadow:0 2px 6px rgba(0,0,0,.45);border:1.5px solid var(--surface);
+}
+.cp-rel-name{font-size:9.5px;font-weight:800;color:var(--text-3);max-width:66px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cp-rel:hover .cp-rel-name{color:var(--gold)}
+
+/* ===== PvP 패치 페이지 ===== */
+.pvp-toolbar{display:flex;justify-content:flex-end;margin-top:18px}
+.pvp-date{position:relative}
+.pvp-date-btn{gap:7px}
+.pvp-date-btn.is-open{border-color:var(--gold);color:var(--gold)}
+.pvp-date-list{
+  position:absolute;top:calc(100% + 8px);right:0;z-index:30;width:230px;
+  background:var(--surface);border:1px solid var(--line-2);border-radius:var(--r-md);
+  box-shadow:var(--shadow);padding:6px;max-height:232px;overflow-y:auto;
+}
+.pvp-date-item{
+  display:flex;align-items:center;justify-content:space-between;width:100%;padding:11px 13px;min-height:44px;
+  border-radius:var(--r-sm);font-weight:800;font-size:13.5px;color:var(--text-2);transition:.18s;text-align:left;
+}
+.pvp-date-item:hover{background:var(--surface-2);color:var(--text)}
+.pvp-date-item.is-on{background:color-mix(in srgb,var(--gold) 14%,transparent);color:var(--gold)}
+.pvp-cols{display:flex;flex-direction:column;gap:18px;margin-top:14px;margin-bottom:34px}
+@media (min-width:768px){.pvp-cols{flex-direction:row;align-items:flex-start}}
+.pvp-col{flex:1;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;min-width:0}
+.pvp-col-title{
+  display:flex;align-items:center;gap:9px;padding:15px 16px;font-family:var(--font-d);font-size:18px;
+  letter-spacing:.5px;border-bottom:1px solid var(--line);
+}
+.pvp-col--buff .pvp-col-title{color:var(--green)}
+.pvp-col--nerf .pvp-col-title{color:var(--red)}
+.pvp-col--fix .pvp-col-title{color:#d2a679}
+.pvp-col-en{font-family:var(--font-b);font-size:10.5px;font-weight:800;letter-spacing:1.2px;color:var(--text-3);margin-left:auto;text-transform:uppercase}
+.pvp-col-body{padding:10px}
+/* 컬럼 내 아이콘 그리드 — 박스당 가로 4개씩 */
+.pvp-col-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 6px;justify-items:center;align-items:center;align-content:start}
+
+/* ===== PvP 패치 정보 팝업 ===== */
+.pvp-top{display:flex;gap:16px;align-items:center;padding:2px 0 16px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.pvp-ava{
+  flex:none;width:88px;height:88px;aspect-ratio:1/1;padding:0;
+  border-radius:50%;overflow:hidden;border:2px solid var(--line-2);
+  background:linear-gradient(150deg,var(--surface-2),var(--surface-3));
+  box-shadow:0 6px 18px rgba(2,10,20,.4);
+}
+.pvp-ava img{display:block;width:100%;height:100%;padding:0;margin:0;object-fit:cover;border-radius:inherit}
+.pvp-id{flex:1;min-width:0}
+.pvp-name{font-family:var(--font-d);font-size:24px;letter-spacing:.4px;line-height:1.25;margin-bottom:7px}
+.pvp-sub{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pvp-modal-date{
+  font-size:12px;font-weight:800;color:var(--text-3);letter-spacing:.4px;
+  background:var(--surface-2);border:1px solid var(--line);border-radius:99px;padding:3px 10px;
+}
+.pvp-sec{margin-bottom:16px}
+.pvp-sec:last-child{margin-bottom:2px}
+.pvp-sec h4{
+  display:flex;align-items:center;gap:9px;font-family:var(--font-d);font-size:15px;letter-spacing:.5px;
+  margin-bottom:8px;padding-left:12px;position:relative;
+}
+.pvp-sec h4::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:3px;transform:skewY(-8deg)}
+.pvp-sec--buff h4{color:var(--green)}
+.pvp-sec--nerf h4{color:var(--red)}
+.pvp-sec--fix h4{color:#d2a679}
+.pvp-sec--buff h4::before{background:var(--green)}
+.pvp-sec--nerf h4::before{background:var(--red)}
+.pvp-sec--fix h4::before{background:#d2a679}
+.pvp-sec .badge{position:static;font-size:11px;padding:3px 9px}
+.pvp-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.pvp-list li{background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-sm);padding:11px 13px}
+.pvp-list li small{font-size:12.5px;color:var(--text-2);line-height:1.65}
+.pvp-empty{font-size:12.5px;color:var(--text-3);padding:6px 2px}

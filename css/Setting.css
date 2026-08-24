@@ -1,0 +1,27 @@
+/* ============ FPP v2 — Setting.css ============ */
+
+.setting-wrap{max-width:640px}
+.setting-head{padding:30px 4px 6px}
+.setting-title{font-family:var(--font-d);font-size:clamp(26px,5vw,34px);position:relative;display:inline-block;padding-bottom:8px}
+.setting-title::after{content:"";position:absolute;left:2px;bottom:0;width:56px;height:4px;background:var(--gold);transform:skewX(-18deg)}
+.setting-sub{color:var(--text-3);font-size:13.5px;margin-top:10px}
+
+.set-list{margin-top:22px;margin-bottom:34px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+.set-item{
+  display:flex;align-items:center;gap:15px;width:100%;text-align:left;padding:16px 18px;min-height:66px;
+  transition:background .2s;position:relative;
+}
+.set-item + .set-item{border-top:1px solid var(--line)}
+.set-item:hover{background:var(--surface-2)}
+.set-item:active{background:var(--surface-3)}
+.set-ic{
+  flex:none;width:44px;height:44px;border-radius:var(--r-sm);background:var(--surface-2);
+  border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--gold);
+  transition:transform .25s var(--ease);
+}
+.set-item:hover .set-ic{transform:scale(1.08) rotate(-4deg)}
+.set-tx{flex:1;min-width:0}
+.set-tx strong{display:block;font-size:15px}
+.set-tx small{color:var(--text-3);font-size:12px}
+.set-ar{font-size:22px;color:var(--text-3);transition:.2s;font-weight:300}
+.set-item:hover .set-ar{color:var(--gold);transform:translateX(4px)}

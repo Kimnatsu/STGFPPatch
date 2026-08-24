@@ -1,0 +1,51 @@
+/* ============================================================
+   FPP v2 — CustomerService.css
+   ============================================================ */
+.cs-wrap{padding-top:22px;padding-bottom:10px}
+
+/* 검색 (배너 바로 아래) */
+.cs-search{position:relative;max-width:680px;margin:0 auto}
+.cs-search svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--text-3)}
+.cs-search input{
+  padding:14px 18px 14px 48px;min-height:56px;border-radius:99px;font-size:15px;
+  background:var(--surface);box-shadow:var(--shadow);
+}
+.cs-search input:focus{border-color:var(--gold)}
+
+/* 1:1 문의 / 나의 문의 */
+.cs-actions{display:flex;gap:10px;justify-content:center;margin:18px 0 22px;flex-wrap:wrap}
+
+/* Border 없는 목록형 Box (§38) */
+.cs-list{max-width:860px;margin:0 auto}
+.cs-rows{list-style:none}
+.cs-row{
+  display:flex;align-items:center;gap:15px;padding:17px 10px;cursor:pointer;min-height:64px;
+  border-bottom:1px solid var(--line);transition:.2s;position:relative;
+}
+.cs-row:last-child{border-bottom:0}
+.cs-row::after{content:"";position:absolute;left:10px;right:10px;bottom:-1px;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .3s var(--ease)}
+.cs-row:hover::after{transform:scaleX(1)}
+.cs-row:hover{padding-left:16px}
+.cs-q-ic{
+  flex:none;width:38px;height:38px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-d);font-size:17px;color:var(--gold-ink);background:linear-gradient(150deg,var(--gold-2),var(--gold));
+  transform:skewX(-6deg);transition:transform .25s var(--ease);
+}
+.cs-row:hover .cs-q-ic{transform:skewX(-6deg) scale(1.08)}
+.cs-row-tx{flex:1;min-width:0}
+.cs-row-tx b{display:block;font-size:15px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cs-row-tx small{display:flex;gap:7px;align-items:center;font-size:11.5px;color:var(--text-3);margin-top:3px}
+.cs-row-tx .badge{font-style:normal}
+.cs-arrow{color:var(--text-3);font-size:22px;transition:.2s}
+.cs-row:hover .cs-arrow{color:var(--gold);transform:translateX(3px)}
+
+/* 상세 */
+#csDetail{max-width:860px;margin:0 auto}
+#csMeta{font-size:12.5px;color:var(--text-3)}
+
+/* 나의 문의 항목 */
+.my-q{border:1px solid var(--line);border-radius:var(--r-md);padding:13px 15px;margin-bottom:10px;background:var(--surface-2)}
+.my-q-top{display:flex;align-items:center;gap:9px;justify-content:space-between}
+.my-q-top b{font-size:14px}
+.my-q p{font-size:12.5px;color:var(--text-2);margin-top:6px;line-height:1.6;overflow-wrap:break-word}
+.my-q time{display:block;font-size:11px;color:var(--text-3);margin-top:7px}

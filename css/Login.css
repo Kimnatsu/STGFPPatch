@@ -1,0 +1,46 @@
+/* ============ FPP v2 — Login.css ============ */
+
+.sea-lines{
+  position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+  background:
+    repeating-radial-gradient(circle at 50% 130%, transparent 0 90px, rgba(86,169,230,.05) 90px 92px),
+    repeating-radial-gradient(circle at 50% 140%, transparent 0 140px, rgba(245,185,66,.045) 140px 142px);
+}
+
+.login-stage{
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  padding:56px 20px 60px;
+}
+.login-logo{display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--gold);margin-bottom:18px;transition:transform .3s var(--ease)}
+.login-logo:hover{transform:translateY(-3px)}
+.login-logo-mark{filter:drop-shadow(0 8px 22px rgba(245,185,66,.3))}
+.login-logo-txt{font-family:var(--font-d);font-size:34px;letter-spacing:2px;color:var(--text)}
+.login-title{font-family:var(--font-d);font-size:26px;letter-spacing:.5px}
+.login-sub{font-size:13px;color:var(--text-3);margin:6px 0 22px}
+
+.login-card{
+  width:min(400px,100%);background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r-lg);padding:24px 22px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.login-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--gold),var(--red) 55%,var(--blue));
+}
+
+.login-links{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+.login-links--center{justify-content:center}
+.lk{font-size:13px;font-weight:700;color:var(--text-2);padding:9px 6px;min-height:38px;transition:.2s;border-radius:4px}
+.lk:hover{color:var(--gold)}
+
+.or-line{display:flex;align-items:center;gap:12px;margin:16px 0;color:var(--text-3);font-size:11.5px;font-weight:800}
+.or-line::before,.or-line::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.demo-line{display:flex;justify-content:center;margin-top:14px}
+
+.code-ok{color:var(--green)!important}
+.code-wait{color:var(--gold)!important}
+
+@media (max-width:420px){
+  .login-card{padding:20px 16px}
+  .login-stage{padding-top:40px}
+}
