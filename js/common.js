@@ -835,7 +835,15 @@ window.UI = (function () {
   /* ---------- 스크롤 리빌 ---------- */
   function watchReveals(root) {
     var scope = root || document;
-    var els = scope.querySelectorAll('.rv:not(.on)');
+    var els = [];
+    /* root 자신이 .rv인 경우 querySelectorAll에는 포함되지 않는다. */
+    if (scope.nodeType === 1 && scope.classList &&
+        scope.classList.contains('rv') && !scope.classList.contains('on')) {
+      els.push(scope);
+    }
+    Array.prototype.forEach.call(scope.querySelectorAll('.rv:not(.on)'), function (el) {
+      els.push(el);
+    });
     var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (es) {
       es.forEach(function (en) {
         if (en.isIntersecting) { en.target.classList.add('on'); io.unobserve(en.target); }

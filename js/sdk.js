@@ -1,7 +1,3 @@
---- public/js/sdk.js (原始)
-
-
-+++ public/js/sdk.js (修改后)
 /* ============================================================
    FPP v2 — sdk.js
    Firebase SDK 다중 CDN 폴백 로더.
