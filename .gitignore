@@ -1,0 +1,29 @@
+```
+# Compressed archives
+*.tar
+*.tar.gz
+*.gz
+*.zip
+*.rar
+*.7z
+*.bz2
+*.xz
+*.tgz
+*.Z
+*.lz
+*.lzo
+*.lz4
+*.lzh
+*.cab
+*.arj
+*.rpm
+*.deb
+*.zst
+
+# Log files
+*.log
+server.log
+
+# Archives are not source files, so ignoring them
+fpp-v2-project.tar
+```
