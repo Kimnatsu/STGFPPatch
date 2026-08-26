@@ -166,7 +166,7 @@
   }
 
   function start() {
-    FB.onReady().then(function () {
+    FB.onReady(function () {
       if (FB.ready) {
         FB.auth().onAuthStateChanged(function (u) {
           if (!u || pendingUser) return;

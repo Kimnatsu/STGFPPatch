@@ -1,42 +1,59 @@
-/* Firebase SDK 폴백 로더 — 이미 로드된 모듈은 건너뛰고,
-   gstatic 실패 시 jsDelivr → unpkg 순으로 재시도한다. */
+--- public/js/sdk.js (原始)
+
+
++++ public/js/sdk.js (修改后)
+/* ============================================================
+   FPP v2 — sdk.js
+   Firebase SDK 다중 CDN 폴백 로더.
+   gstatic 정적 태그가 먼저 로드되면 아무것도 하지 않고,
+   차단·실패 시에만 jsDelivr → unpkg 순으로 재시도한다.
+   ============================================================ */
 (function () {
   'use strict';
-  var V = '10.12.2';
-  var mods = [
-    { key: 'app', file: 'firebase-app-compat' },
-    { key: 'auth', file: 'firebase-auth-compat' },
-    { key: 'firestore', file: 'firebase-firestore-compat' }
+  var VERSION = '10.12.2';
+  var MODS = ['app', 'auth', 'firestore'];
+  var CDNS = [
+    'https://cdn.jsdelivr.net/npm/firebase@' + VERSION + '/',
+    'https://unpkg.com/firebase@' + VERSION + '/'
   ];
-  function loaded(key) {
-    return !!(window.firebase && (
-      (key === 'app' && window.firebase.apps) ||
-      (key === 'auth' && window.firebase.auth) ||
-      (key === 'firestore' && window.firebase.firestore)
-    ));
+
+  function has(mod) {
+    return !!(window.firebase && window.firebase.apps !== undefined && window.firebase[mod]);
   }
-  function cdn(host, file) {
-    return host === 'gstatic'
-      ? 'https://www.gstatic.com/firebasejs/' + V + '/' + file + '.js'
-      : 'https://cdn.jsdelivr.net/npm/firebase@' + V + '/' + file + '.js';
+  function allLoaded() {
+    return MODS.every(has);
   }
-  function inject(src) {
+  function loadScript(src) {
     return new Promise(function (resolve, reject) {
       var s = document.createElement('script');
       s.src = src;
-      s.onload = resolve;
-      s.onerror = reject;
+      s.onload = function () { resolve(); };
+      s.onerror = function () { reject(new Error('load fail: ' + src)); };
       document.head.appendChild(s);
     });
   }
-  function loadOne(i) {
-    if (i >= mods.length) return Promise.resolve();
-    var m = mods[i];
-    if (loaded(m.key)) return loadOne(i + 1);
-    return inject(cdn('gstatic', m.file))
-      .catch(function () { return inject(cdn('jsdelivr', m.file)); })
-      .then(function () { return loadOne(i + 1); })
-      .catch(function () { return loadOne(i + 1); });
+  function loadMod(mod, cdnIdx) {
+    if (cdnIdx >= CDNS.length) return Promise.reject(new Error(mod + ' 로드 실패'));
+    var src = CDNS[cdnIdx] + 'firebase-' + mod + '-compat.js';
+    return loadScript(src).then(function () {
+      if (!has(mod)) throw new Error(mod + ' 미정의');
+    }).catch(function () {
+      return loadMod(mod, cdnIdx + 1);
+    });
   }
-  loadOne(0);
+  function loadAll(cdnIdx) {
+    return MODS.reduce(function (chain, mod) {
+      return chain.then(function () {
+        if (has(mod)) return Promise.resolve();
+        return loadMod(mod, 0);
+      });
+    }, Promise.resolve());
+  }
+
+  if (allLoaded()) return; /* gstatic 정적 태그가 이미 로드함 */
+  loadAll(0).then(function () {
+    try { document.dispatchEvent(new CustomEvent('fpp:sdk-ready')); } catch (e) { }
+  }).catch(function (e) {
+    console.error('[FPP] Firebase SDK 로드 실패:', e);
+  });
 })();

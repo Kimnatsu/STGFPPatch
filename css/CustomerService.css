@@ -3,7 +3,6 @@
    ============================================================ */
 .cs-wrap{padding-top:22px;padding-bottom:10px}
 
-/* 검색 (배너 바로 아래) */
 .cs-search{position:relative;max-width:680px;margin:0 auto}
 .cs-search svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--text-3)}
 .cs-search input{
@@ -12,12 +11,11 @@
 }
 .cs-search input:focus{border-color:var(--gold)}
 
-/* 1:1 문의 / 나의 문의 */
 .cs-actions{display:flex;gap:10px;justify-content:center;margin:18px 0 22px;flex-wrap:wrap}
 
 /* Border 없는 목록형 Box (§38) */
 .cs-list{max-width:860px;margin:0 auto}
-.cs-rows{list-style:none}
+.cs-rows{list-style:none;margin:0;padding:0}
 .cs-row{
   display:flex;align-items:center;gap:15px;padding:17px 10px;cursor:pointer;min-height:64px;
   border-bottom:1px solid var(--line);transition:.2s;position:relative;
@@ -39,11 +37,9 @@
 .cs-arrow{color:var(--text-3);font-size:22px;transition:.2s}
 .cs-row:hover .cs-arrow{color:var(--gold);transform:translateX(3px)}
 
-/* 상세 */
 #csDetail{max-width:860px;margin:0 auto}
 #csMeta{font-size:12.5px;color:var(--text-3)}
 
-/* 나의 문의 항목 */
 .my-q{border:1px solid var(--line);border-radius:var(--r-md);padding:13px 15px;margin-bottom:10px;background:var(--surface-2)}
 .my-q-top{display:flex;align-items:center;gap:9px;justify-content:space-between}
 .my-q-top b{font-size:14px}
