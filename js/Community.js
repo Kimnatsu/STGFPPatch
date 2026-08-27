@@ -389,7 +389,9 @@
   function renderBoardList() {
     var el = $('boardContent');
     var toolbar = $('boardToolbar');
+    var writeToolbar = document.querySelector('#view-board .write-toolbar');
     toolbar.style.display = '';
+    if (writeToolbar) UI.watchReveals(writeToolbar);
     /* 목록으로 돌아오거나 초기 로딩이 끝난 뒤에도 툴바 리빌을 보장한다. */
     UI.watchReveals(toolbar);
     var list = boardListFiltered();
@@ -745,6 +747,8 @@
   }
   function openWrite() {
     UI.setActiveNav('board');
+    var writeCard = document.querySelector('#view-write .write-card');
+    if (writeCard) UI.watchReveals(writeCard);
     resetWriteForm();
     document.querySelectorAll('.write-cat').forEach(function (c) {
       c.addEventListener('click', function () {
