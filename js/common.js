@@ -215,8 +215,8 @@ window.UI = (function () {
       '<span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 64 64" width="30" height="30"><circle cx="32" cy="32" r="29" fill="none" stroke="currentColor" stroke-width="4"/><path d="M32 13c-8 0-14 6-14 13 0 5 3 9 7 11v6l4-2 3 3 3-3 4 2v-6c4-2 7-6 7-11 0-7-6-13-14-13z" fill="currentColor"/></svg></span>' +
       '<span class="logo-txt">FPP</span></a>' +
       '<div class="hd-right">' +
-      '<button class="icon-btn" id="btnFav" aria-label="즐겨찾기">' + IC.bookmark + '</button>' +
       '<button class="icon-btn" id="btnSet" aria-label="설정">' + IC.gear + '</button>' +
+      '<button class="icon-btn" id="btnFav" aria-label="즐겨찾기">' + IC.bookmark + '</button>' +
       '<div class="hd-auth" id="hdAuth"></div>' +
       '</div></div>';
     $('btnBurger').addEventListener('click', toggleDrawer);

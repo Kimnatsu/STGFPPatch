@@ -464,3 +464,6 @@ label.fld,div.fld{display:flex;flex-direction:column;gap:7px;margin-bottom:13px}
 .ficon .ficon-fb{display:none}
 .ficon.fallback::before{display:none}
 .ficon.fallback .ficon-fb{display:block}
+/* 설정 아이콘은 폰트 글리프가 환경별로 다른 모양을 표시하지 않도록 SVG를 고정 사용 */
+.ficon-gear::before{display:none}
+.ficon-gear .ficon-fb{display:block}
