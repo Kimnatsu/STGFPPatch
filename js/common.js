@@ -869,7 +869,12 @@ window.UI = (function () {
     buildDrawer();
     applyI18n();
     updateAuthArea();
-    FB.onReady().then(function () {
+    /*
+     * Firebase.onReady는 콜백 방식의 준비 대기 API다.
+     * Promise처럼 .then()을 호출하면 이 지점에서 공통 부팅이 중단되어
+     * 이후 리빌 처리도 실행되지 않고, .rv 툴바가 계속 투명 상태로 남는다.
+     */
+    FB.onReady(function () {
       if (FB.ready) {
         FB.auth().onAuthStateChanged(function (u) {
           _fbUser = u;

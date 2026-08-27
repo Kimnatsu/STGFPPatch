@@ -388,7 +388,10 @@
   }
   function renderBoardList() {
     var el = $('boardContent');
-    $('boardToolbar').style.display = '';
+    var toolbar = $('boardToolbar');
+    toolbar.style.display = '';
+    /* 목록으로 돌아오거나 초기 로딩이 끝난 뒤에도 툴바 리빌을 보장한다. */
+    UI.watchReveals(toolbar);
     var list = boardListFiltered();
     if (!list.length) { UI.empty(el, { title: '게시글이 없습니다.', desc: B.cat === 'all' ? '첫 게시글의 주인공이 되어보세요.' : '\'' + B.cat + '\' 카테고리에 글이 없습니다.' }); return; }
     if (B.view === 'card') {
@@ -449,7 +452,10 @@
   }
   function renderEventList() {
     var el = $('eventContent');
-    $('eventToolbar').style.display = '';
+    var toolbar = $('eventToolbar');
+    toolbar.style.display = '';
+    /* 목록으로 돌아오거나 초기 로딩이 끝난 뒤에도 툴바 리빌을 보장한다. */
+    UI.watchReveals(toolbar);
     var list = eventListFiltered();
     if (!list.length) {
       UI.empty(el, { title: E.cat === 'ing' ? '진행 중인 이벤트가 없습니다.' : E.cat === 'end' ? '종료된 이벤트가 없습니다.' : '이벤트가 없습니다.' });
